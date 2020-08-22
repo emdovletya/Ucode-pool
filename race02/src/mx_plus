@@ -1,0 +1,68 @@
+#include "minilibmx.h"
+
+static void var1(char *s1, char *s2, char *res) {
+    if ((con(s1) == 0 && con(s2) == 1)) {
+        if (con(res) == 1) {
+            for (int i = mx_pow_rec(10, mx_strlen(res) - 1) - 1; i < (mx_pow_rec(10, mx_strlen(res))); i++) {
+                if ((i - mx_atoi(s1)) > 0 && num_count(i - mx_atoi(s1)) == mx_strlen(s2)) {
+                    printline(mx_atoi(s1), '+', i - mx_atoi(s1), i);
+                }
+            }
+        }
+        else if(con(res) == 0) {
+            if(mx_atoi(res) > mx_atoi(s1))
+                printline(mx_atoi(s1), '+',mx_atoi(res) - mx_atoi(s1), mx_atoi(res));
+        }
+    }
+}
+
+static void var2(char *s1, char *s2, char *res) {
+    if ((con(s1) == 1 && con(s2) == 0)) {
+        if (con(res) == 1) {
+            for (int i = mx_pow_rec(10, mx_strlen(res) - 1) - 1; i < (mx_pow_rec(10, mx_strlen(res))); i++) {
+                if ((i - mx_atoi(s2)) > 0 && num_count(i - mx_atoi(s2)) == mx_strlen(s1))
+                    printline(i - mx_atoi(s2), '+', mx_atoi(s2), i);
+            }
+        }
+        else if (con(res) == 0) {
+            if (mx_atoi(res) > mx_atoi(s1))
+                printline(mx_atoi(res) - mx_atoi(s2), '+', mx_atoi(s2), mx_atoi(res));
+        }
+    }
+}
+
+static void var3(char *s1, char *s2, char *res) {
+    if ((con(s1) == 1 && con(s2) == 1)) {
+        if (con(res) == 1) {
+            for (int i = mx_pow_rec(10, mx_strlen(s1) - 1) - 1; i < (mx_pow_rec(10, mx_strlen(s1))); i++) {
+                for (int j = mx_pow_rec(10, mx_strlen(s2) - 1) - 1; j < (mx_pow_rec(10, mx_strlen(s2))); j++) {
+                    if (num_count(i + j) == mx_strlen(res))
+                        printline(i, '+', j, i + j);
+                    }
+                }
+            }
+
+        else if (con(res) == 0) {
+            for (int i = mx_pow_rec(10, mx_strlen(s1) - 1); i < (mx_pow_rec(10, mx_strlen(s1))); i++) {
+                for (int j = mx_pow_rec(10, mx_strlen(s2) - 1); j < (mx_pow_rec(10, mx_strlen(s2))); j++) {
+                    if (i + j == mx_atoi(res))
+                        printline(i, '+', j, mx_atoi(res));
+                }
+            }
+        }
+    }
+}
+
+static void var4(char *s1, char *s2, char *res) {
+    if ((con(s1) == 0 && con(s2) == 0)) {
+        if ((num_count(mx_atoi(s1) + mx_atoi(s2)) == mx_strlen(res)))
+            printline(mx_atoi(s1), '+', mx_atoi(s2), mx_atoi(s1) + mx_atoi(s2));
+    }
+}
+
+void mx_plus(char *s1, char *s2, char *res) {
+    var1(s1, s2, res);
+    var2(s1, s2, res);
+    var3(s1, s2, res);
+    var4(s1, s2, res);
+}
